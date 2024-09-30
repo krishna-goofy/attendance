@@ -85,7 +85,7 @@ This project is an automated attendance management system using two devices, Dev
 1. **Clone the Repository**
    ```bash
    git clone https://github.com/krishna-goofy/attendance.git
-   cd attendance-management-system
+   cd attendance
    ```
 
 2. **Install Python Dependencies**
