@@ -1,0 +1,177 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Student Dashboard</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #f4f4f4;
+            margin: 0;
+            padding: 20px;
+        }
+        .container {
+            max-width: 800px;
+            margin: auto;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        h1 {
+            text-align: center;
+        }
+        .info {
+            margin-bottom: 20px;
+        }
+        .info strong {
+            color: #333;
+        }
+        .table-container {
+            margin-top: 20px;
+        }
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            margin-bottom: 20px;
+        }
+        table, th, td {
+            border: 1px solid #ddd;
+        }
+        th, td {
+            padding: 10px;
+            text-align: left;
+        }
+        th {
+            background-color: #f2f2f2;
+        }
+        .retractable-section h2 {
+            cursor: pointer;
+            background-color: #f2f2f2;
+            padding: 10px;
+            border-radius: 5px;
+        }
+        .retractable-section .content {
+            display: none;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+
+    <script>
+        function toggleContent(id) {
+            const content = document.getElementById(id);
+            if (content.style.display === "none") {
+                content.style.display = "block";
+            } else {
+                content.style.display = "none";
+            }
+        }
+    </script>
+
+<div class="container">
+    <h1>Student Dashboard</h1>
+
+    <form method="POST">
+        <div class="info">
+            <label for="student_name">Student Name:</label>
+            <input type="text" id="student_name" name="student_name" value="{{ selected_student }}" required>
+            <button type="submit">View Dashboard</button>
+        </div>
+    </form>
+
+    {% if error %}
+        <div class="error">
+            <p style="color: red;">{{ error }}</p>
+        </div>
+    {% endif %}
+
+    {% if current_period %}
+        <div class="info">
+            <p><strong>Current Period:</strong> {{ current_period }}</p>
+            <p><strong>Duration in Current Period:</strong> {{ duration }}</p>
+        </div>
+    {% endif %}
+
+    <div class="table-container retractable-section">
+        <h2 onclick="toggleContent('attendanceContent')">Attendance for All Classes</h2>
+        <div id="attendanceContent" class="content">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Date</th>
+                        <th>Class ID</th>
+                        <th>Batch</th>
+                        <th>Period</th>
+                        <th>Coming In Time</th>
+                        <th>Going Out Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for attendance in all_attendance %}
+                        <tr>
+                            <td>{{ attendance.date }}</td>
+                            <td>{{ attendance.folder_id }}</td>
+                            <td>{{ attendance.batch_id }}</td>
+                            <td>{{ attendance.period }}</td>
+                            <td>{{ attendance.coming_in_time }}</td>
+                            <td>{{ attendance.going_out_time if attendance.going_out_time else 'Still in class' }}</td>
+                        </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+
+    <div class="table-container">
+        <h2>Total Duration for All Days</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Date</th>
+                    <th>Class ID</th>
+                    <th>Batch</th>
+                    <th>Period</th>
+                    <th>Total Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for entry in aggregated_durations %}
+                    <tr>
+                        <td>{{ entry.date }}</td>
+                        <td>{{ entry.class_id }}</td>
+                        <td>{{ entry.batch }}</td>
+                        <td>{{ entry.period }}</td>
+                        <td>{{ entry.total_duration }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+    <div class="table-container">
+        <h2>Total Duration for Each Batch</h2>
+        <table>
+            <thead>
+                <tr>
+                    <th>Batch</th>
+                    <th>Total Duration</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for batch, duration in batch_durations.items() %}
+                    <tr>
+                        <td>{{ batch }}</td>
+                        <td>{{ duration }}</td>
+                    </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
+</div>
+
+</body>
+</html>
