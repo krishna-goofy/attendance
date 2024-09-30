@@ -84,7 +84,7 @@ This project is an automated attendance management system using two devices, Dev
 
 1. **Clone the Repository**
    ```bash
-   git clone https://github.com/your-username/attendance-management-system.git
+   git clone https://github.com/krishna-goofy/attendance.git
    cd attendance-management-system
    ```
 
@@ -132,33 +132,6 @@ This project is an automated attendance management system using two devices, Dev
   
 ---
 
-## Diagrams
-
-### Data Flow Diagram (DFD)
-1. **Level 0 (Context Diagram)**:
-   - **Entities**: Admin, Student
-   - **Processes**: Attendance Marking, Timetable Creation, Batch Creation, Attendance Viewing
-   - **Data Stores**: Database (Timetable, Attendance, Batches)
-
-2. **Level 1**:
-   - **Admin**: Can create timetables, view attendance, and create batches.
-   - **Student**: Validates attendance using fingerprint and views attendance records.
-   - **Database**: Stores attendance data, timetables, and batch information.
-
-### Use Case Diagram
-1. **Actors**: Admin, Student
-2. **Use Cases**:
-   - **Admin**:
-     - Create Timetable
-     - Create Batches
-     - View Attendance
-     - View Timetables
-   - **Student**:
-     - View Attendance
-     - Validate Attendance via Fingerprint
-   
-
-This `README.md` file outlines the key components of the attendance management system, including its functionality, system setup, and operational benefits.
 ![image](https://github.com/user-attachments/assets/9571c8a1-f576-4c60-b062-1baaec29101d)
 ![image](https://github.com/user-attachments/assets/3983b13a-fdf8-4987-b325-a799db8d9b6e)
 ![image](https://github.com/user-attachments/assets/d4a51727-4c6f-4fc8-9bc3-26162505cc74)
